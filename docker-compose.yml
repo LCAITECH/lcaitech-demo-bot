@@ -1,0 +1,15 @@
+services:
+  demo-bot:
+    build: .
+    restart: unless-stopped
+    # El token se toma del entorno del host o de un .env (chmod 600) en esta carpeta. Nunca se versiona.
+    environment:
+      TELEGRAM_BOT_TOKEN: ${TELEGRAM_BOT_TOKEN:?Falta TELEGRAM_BOT_TOKEN}
+      GEMINI_API_KEY: ${GEMINI_API_KEY:-}
+      COINGECKO_API_KEY: ${COINGECKO_API_KEY:-}
+      ASK_DAILY_LIMIT: ${ASK_DAILY_LIMIT:-20}
+      WHALE_MIN_USD: ${WHALE_MIN_USD:-20000}
+    mem_limit: 256m
+    logging:
+      driver: json-file
+      options: { max-size: "5m", max-file: "3" }

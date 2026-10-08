@@ -1,0 +1,6 @@
+{
+  "_comment": "Cargar a mano desde fuentes públicas o reemplazar por ATH_API_URL. Formato de cada item: {\"date\": \"YYYY-MM-DD\", \"token\": \"XYZ\", \"amount\": \"10M XYZ (~USD 5M, 1.2% supply)\", \"note\": \"team/investors\", \"source_url\": \"https://...\"}. Vacío a propósito: no se inventan datos.",
+  "updated_at": null,
+  "source": "manual",
+  "items": []
+}
