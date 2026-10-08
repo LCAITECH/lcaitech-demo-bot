@@ -91,8 +91,18 @@ fi
 
 # ---------- 4. venv ----------
 step "4/7 Entorno Python (venv + dependencias)"
-if [ ! -x "$APP_DIR/.venv/bin/python" ]; then
-  python3 -m venv "$APP_DIR/.venv"
+if [ ! -x "$APP_DIR/.venv/bin/pip" ]; then
+  rm -rf "$APP_DIR/.venv"
+  if ! python3 -m venv "$APP_DIR/.venv" >/dev/null 2>&1; then
+    # algunas imágenes necesitan el paquete versionado (ej. python3.11-venv)
+    pyver="$(python3 -c 'import sys; print(f"{sys.version_info[0]}.{sys.version_info[1]}")')"
+    echo "    Instalando python3-venv / python${pyver}-venv…"
+    export DEBIAN_FRONTEND=noninteractive
+    apt-get update -qq
+    apt-get install -y -qq python3-venv "python${pyver}-venv" >/dev/null 2>&1 || apt-get install -y -qq python3-venv >/dev/null
+    rm -rf "$APP_DIR/.venv"
+    python3 -m venv "$APP_DIR/.venv"
+  fi
 fi
 "$APP_DIR/.venv/bin/pip" install --quiet --disable-pip-version-check -r "$APP_DIR/requirements.txt"
 ok "dependencias instaladas"
@@ -211,7 +221,8 @@ sleep 8
 systemctl --no-pager --lines=0 status "$SERVICE" || true
 echo
 echo "    Últimas líneas del log:"
-journalctl -u "$SERVICE" -n 15 --no-pager -o short-iso || true
+journalctl -u "$SERVICE" -n 15 --no-pager -o short-iso 2>/dev/null \
+  | sed -E 's/[0-9]{6,}:[A-Za-z0-9_-]{30,}/[REDACTED]/g' || true
 logs="$(journalctl -u "$SERVICE" -n 300 --no-pager -o cat 2>/dev/null || true)"
 if grep -q '^TELEGRAM_BOT_TOKEN=.' "$ENV_FILE" 2>/dev/null \
    && printf '%s' "$logs" | grep -qF -f <(sed -n 's/^TELEGRAM_BOT_TOKEN=//p' "$ENV_FILE"); then
