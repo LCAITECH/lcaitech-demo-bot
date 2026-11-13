@@ -3,34 +3,61 @@
 
 ## ¿Qué es LCA ITECH? | What is LCA ITECH?
 keywords: lca itech leandro buchter quien sos who are you quién empresa company marca brand que haces what do you do about acerca
-ES: LCA ITECH es la marca de Leandro Buchter (Buenos Aires). Construye sistemas completos para proyectos cripto y equipos tech: datos de mercado, bots de Telegram, agentes de IA y automatizaciones, desde la fuente de datos hasta el servidor donde corre. Más de 10 años en tecnología (IT desde 2015) y en cripto desde 2020. Productos propios: ATH Intelligence (athintelligence.pro) y ARDC. Portfolio: https://portfolio.lcaitech.com
-EN: LCA ITECH is Leandro Buchter's brand (Buenos Aires). He builds complete systems for crypto projects and tech teams: market data, Telegram bots, AI agents and automations, from the data source to the server it runs on. 10+ years in tech (IT since 2015), in crypto since 2020. Own products: ATH Intelligence (athintelligence.pro) and ARDC. Portfolio: https://portfolio.lcaitech.com
+ES: LCA ITECH es la marca de Leandro Buchter (Buenos Aires). Construye sistemas completos para proyectos cripto y equipos tech: datos de mercado, bots de Telegram, agentes de IA y automatizaciones, desde la fuente de datos hasta el servidor donde corre. LCA ITECH existe desde 2022. Más de 10 años en tecnología (IT desde 2015) y en cripto desde 2020. Producto propio: ATH Intelligence (athintelligence.pro). Portfolio: https://portfolio.lcaitech.com
+EN: LCA ITECH is Leandro Buchter's brand (Buenos Aires). He builds complete systems for crypto projects and tech teams: market data, Telegram bots, AI agents and automations, from the data source to the server it runs on. LCA ITECH was founded in 2022. 10+ years in tech (IT since 2015), in crypto since 2020. Own product: ATH Intelligence (athintelligence.pro). Portfolio: https://portfolio.lcaitech.com
 
 ## Servicios y precios | Services and prices
-keywords: servicios services precio precios price prices pricing cuanto cuesta how much cost costo paquete paquetes package packages presupuesto quote budget tarifa rate bot api dashboard agente
-ES: Precio cerrado por proyecto, acordado después de una llamada corta (precios "desde", en USD):
+keywords: servicios services precio precios price prices pricing cuanto cuesta how much cost costo paquete paquetes package packages presupuesto quote budget tarifa rate bot api dashboard agente modulo modulos module modules pack combo
+ES: Precio cerrado por proyecto, acordado por escrito (precios en USD):
+• S1 Preguntas frecuentes para Telegram: USD 100–150 (3–5 días)
+• S2 Alertas de precio cripto: USD 100–150 (2–4 días)
+• S3 Moderación para Discord o Telegram: USD 120–180 (4–6 días)
+• 2 módulos S −15% · Pack Comunidad S1+S2+S3: USD 250–350
+• P0 Starter (un bot o una automatización): desde USD 250 (~1 semana)
 • P1 Community Alert Bot: desde USD 600 (1–2 semanas)
 • P2 Market Data API + Dashboard: desde USD 2,500 (3–5 semanas)
 • P3 Onboarding & Referral Automation: desde USD 1,200 (2–3 semanas)
 • P4 AI Support Agent: desde USD 1,500 (2–4 semanas)
 • P5 Partner técnico part-time: desde USD 1,500/mes
-• P6 Automatización operativa con IA: desde USD 800 (1–3 semanas)
-• P7 Asistente IA interno + estrategia de modelos: desde USD 2,000 (2–4 semanas)
-Detalle en /servicios y en https://portfolio.lcaitech.com
-EN: Fixed price per project, agreed after a short call (prices "from", in USD):
+• P6 Consultoría en automatización con IA: desde USD 800 (1–3 semanas)
+• P7 Consultoría: asistente de IA y estrategia de modelos: desde USD 2,000 (2–4 semanas)
+• P8 Bot de señales de trading con IA: en desarrollo, sin precio todavía
+50% de anticipo para empezar. Mirá el bot en acción con /comunidad y armá tu pedido en https://portfolio.lcaitech.com/#builder
+EN: Fixed price per project, agreed in writing (prices in USD):
+• S1 Telegram FAQ bot: USD 100–150 (3–5 days)
+• S2 Crypto price alerts: USD 100–150 (2–4 days)
+• S3 Moderation for Discord or Telegram: USD 120–180 (4–6 days)
+• Any 2 S modules −15% · Community Pack S1+S2+S3: USD 250–350
+• P0 Starter (one bot or one automation): from USD 250 (~1 week)
 • P1 Community Alert Bot: from USD 600 (1–2 weeks)
 • P2 Market Data API + Dashboard: from USD 2,500 (3–5 weeks)
 • P3 Onboarding & Referral Automation: from USD 1,200 (2–3 weeks)
 • P4 AI Support Agent: from USD 1,500 (2–4 weeks)
 • P5 Part-time technical partner: from USD 1,500/month
-• P6 AI operations automation: from USD 800 (1–3 weeks)
-• P7 Internal AI assistant + model strategy: from USD 2,000 (2–4 weeks)
-Details: /services and https://portfolio.lcaitech.com
+• P6 AI automation consulting: from USD 800 (1–3 weeks)
+• P7 AI assistant & model strategy consulting: from USD 2,000 (2–4 weeks)
+• P8 AI trading signal bot: in development, no price yet
+50% upfront to start. See the bot in action with /community and build your request at https://portfolio.lcaitech.com/#builder
 
 ## ¿Cómo contratar? | How to hire
 keywords: contratar hire hiring trabajar work together empezar start proceso process pago payment pagar pay anticipo deposit usdt usdc transferencia contacto contact presupuesto quote soporte support entrega delivery
-ES: 1) Escribí a itech.lca@gmail.com (o /contacto) contando qué necesitás en 2–3 líneas. 2) Llamada corta y alcance por escrito antes de empezar, con precio cerrado. 3) 50% de anticipo; en proyectos grandes, por milestones. Pago en USDC / USDT o transferencia. 4) Incluye 30 días de soporte después de la entrega.
-EN: 1) Email itech.lca@gmail.com (or /contact) describing what you need in 2–3 lines. 2) Short call and written scope before starting, with a fixed price. 3) 50% upfront; milestones for larger projects. Payment in USDC / USDT or bank transfer. 4) 30 days of support after delivery.
+ES: 1) Escribí a itech.lca@gmail.com (o /contacto) contando qué necesitás en 2–3 líneas, o armá el pedido en https://portfolio.lcaitech.com/#builder. 2) Alcance y precio cerrado por escrito antes de empezar (sin llamadas). 3) 50% de anticipo para empezar; en proyectos grandes, por milestones. Pago en USDC / USDT o transferencia. 4) Incluye 30 días de soporte después de la entrega.
+EN: 1) Email itech.lca@gmail.com (or /contact) describing what you need in 2–3 lines, or build your request at https://portfolio.lcaitech.com/#builder. 2) Written scope and fixed price before starting (no calls). 3) 50% upfront to start; milestones for larger projects. Payment in USDC / USDT or bank transfer. 4) 30 days of support after delivery.
+
+## ¿Hacés llamadas o videollamadas? | Do you do calls or video calls?
+keywords: llamada llamadas call calls videollamada videollamadas videocall meet zoom reunion reunión meeting hablar talk telefono phone
+ES: No: todo el contacto es por escrito (email, LinkedIn o el formulario del portfolio), así queda registrado el alcance. Si hace falta mostrar algo, va una demo escrita o un video pregrabado. Escribí a itech.lca@gmail.com o usá /contacto.
+EN: No: all contact is in writing (email, LinkedIn or the portfolio form), so the scope is on record. If something needs showing, it's a written demo or a pre-recorded video. Email itech.lca@gmail.com or use /contact.
+
+## ¿Hacen bots de WhatsApp? | Do you build WhatsApp bots?
+keywords: whatsapp wsp wpp whats
+ES: No se ofrecen bots de WhatsApp. Los bots son para Telegram, Discord o la web. Mirá cómo trabajan en /comunidad.
+EN: WhatsApp bots aren't offered. Bots are for Telegram, Discord or the web. See them at work in /community.
+
+## Simulación de comunidad | Community simulation
+keywords: simulacion simulación simulation comunidad community demo antispam spam moderacion moderación moderation captcha bienvenida welcome grupo group
+ES: Con /comunidad el bot reproduce, en tu chat privado, una escena de grupo con usuarios ficticios: bienvenida con captcha, preguntas frecuentes respondidas, scams borrados (airdrops falsos, pedidos de seed phrase), alertas con precios reales y el resumen del día. Cada módulo tiene su demo: /demo_faq (S1), /demo_alertas (S2), /demo_moderacion (S3), /demo_resumen (P1), /demo_onboarding (P3).
+EN: With /community the bot plays, in your private chat, a group scene with fictional users: welcome with captcha, FAQ answered, scams deleted (fake airdrops, seed phrase requests), alerts with real prices and the daily summary. Each module has its own demo: /demo_faq (S1), /demo_alerts (S2), /demo_moderation (S3), /demo_summary (P1), /demo_onboarding (P3).
 
 ## ¿Qué es ATH Intelligence y el Recovery Score? | What are ATH Intelligence and the Recovery Score?
 keywords: ath intelligence recovery score puntaje maximo historico all time high distancia distance recuperar recover volver return supply inflacion inflation athintelligence

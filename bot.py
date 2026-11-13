@@ -4,6 +4,7 @@ Ejecutar: TELEGRAM_BOT_TOKEN=... python bot.py   (el token se lee SOLO de la var
 """
 from __future__ import annotations
 
+import asyncio
 import html
 import logging
 import os
@@ -18,6 +19,7 @@ from telegram.ext import (Application, CallbackQueryHandler, CommandHandler, Con
                           MessageHandler, TypeHandler, filters)
 
 import ai
+import community as com
 import sources as src
 
 load_dotenv()  # opcional; nunca pisa variables ya definidas
@@ -133,6 +135,7 @@ def main_menu(lang: str) -> InlineKeyboardMarkup:
         [b("😨 Fear & Greed", callback_data="fg"), b(tr(lang, "🐋 Ballenas", "🐋 Whales"), callback_data="whales:BTCUSDT")],
         [b(tr(lang, "🤖 Preguntar a la IA", "🤖 Ask the AI"), callback_data="askmenu"),
          b(tr(lang, "🧩 Servicios", "🧩 Services"), callback_data="services")],
+        [b(tr(lang, "🎭 Simulación de comunidad", "🎭 Community simulation"), callback_data="sim:full")],
         [b("🌐 Portfolio", url=PORTFOLIO), b("📈 ATH Intelligence", url=ATH_SITE)],
     ])
 
@@ -237,28 +240,44 @@ async def r_whales(lang: str, sym: str) -> str:
 
 
 def r_services(lang: str) -> str:
-    es = ("🧩 <b>Servicios</b>\nPrecio cerrado por proyecto, acordado después de una llamada corta.\n\n"
+    es = ("🧩 <b>Servicios</b>\nPrecio cerrado por proyecto, acordado por escrito (email o chat; sin llamadas ni videollamadas).\n\n"
+          "<b>Bots chicos</b> (módulos)\n"
+          "<b>S1</b> Preguntas frecuentes para Telegram – USD 100–150 (3–5 días)\n"
+          "<b>S2</b> Alertas de precio cripto – USD 100–150 (2–4 días)\n"
+          "<b>S3</b> Moderación para Discord o Telegram – USD 120–180 (4–6 días)\n"
+          "2 módulos −15% · <b>Pack Comunidad</b> S1+S2+S3: USD 250–350\n\n"
+          "<b>Paquetes</b>\n"
+          "<b>P0</b> Starter: un bot o una automatización – desde USD 250 (~1 sem.)\n"
           "<b>P1</b> Community Alert Bot – desde USD 600 (1–2 sem.)\n"
           "<b>P2</b> Market Data API + Dashboard – desde USD 2,500 (3–5 sem.)\n"
           "<b>P3</b> Onboarding &amp; Referral Automation – desde USD 1,200 (2–3 sem.)\n"
           "<b>P4</b> AI Support Agent – desde USD 1,500 (2–4 sem.)\n"
           "<b>P5</b> Partner técnico part-time – desde USD 1,500/mes\n"
-          "<b>P6</b> Automatización operativa con IA – desde USD 800 (1–3 sem.)\n"
-          "<b>P7</b> Asistente IA interno + estrategia de modelos – desde USD 2,000 (2–4 sem.)\n\n"
-          "✓ Alcance por escrito antes de empezar\n✓ 50% de anticipo · milestones en proyectos grandes\n"
+          "<b>P6</b> Consultoría en automatización con IA – desde USD 800 (1–3 sem.)\n"
+          "<b>P7</b> Consultoría: asistente de IA y estrategia de modelos – desde USD 2,000 (2–4 sem.)\n"
+          "<b>P8</b> Bot de señales de trading con IA – en desarrollo, sin precio todavía\n\n"
+          "✓ Alcance y precio cerrado por escrito antes de empezar\n✓ 50% de anticipo para empezar · milestones en proyectos grandes\n"
           "✓ Pago en USDC / USDT o transferencia\n✓ 30 días de soporte después de la entrega\n\n"
-          "Este bot es un ejemplo del P1. Para hablar: /contacto")
-    en = ("🧩 <b>Services</b>\nFixed price per project, agreed after a short call.\n\n"
+          "Este bot es un ejemplo del P1. Miralo trabajar: /comunidad · Armá tu pedido: portfolio.lcaitech.com/#builder · /contacto")
+    en = ("🧩 <b>Services</b>\nFixed price per project, agreed in writing (email or chat; no calls or video calls).\n\n"
+          "<b>Small bots</b> (modules)\n"
+          "<b>S1</b> Telegram FAQ bot – USD 100–150 (3–5 days)\n"
+          "<b>S2</b> Crypto price alerts – USD 100–150 (2–4 days)\n"
+          "<b>S3</b> Moderation for Discord or Telegram – USD 120–180 (4–6 days)\n"
+          "Any 2 modules −15% · <b>Community Pack</b> S1+S2+S3: USD 250–350\n\n"
+          "<b>Packages</b>\n"
+          "<b>P0</b> Starter: one bot or one automation – from USD 250 (~1 wk)\n"
           "<b>P1</b> Community Alert Bot – from USD 600 (1–2 wks)\n"
           "<b>P2</b> Market Data API + Dashboard – from USD 2,500 (3–5 wks)\n"
           "<b>P3</b> Onboarding &amp; Referral Automation – from USD 1,200 (2–3 wks)\n"
           "<b>P4</b> AI Support Agent – from USD 1,500 (2–4 wks)\n"
           "<b>P5</b> Part-time technical partner – from USD 1,500/month\n"
-          "<b>P6</b> AI operations automation – from USD 800 (1–3 wks)\n"
-          "<b>P7</b> Internal AI assistant + model strategy – from USD 2,000 (2–4 wks)\n\n"
-          "✓ Written scope before starting\n✓ 50% upfront · milestones for larger projects\n"
+          "<b>P6</b> AI automation consulting – from USD 800 (1–3 wks)\n"
+          "<b>P7</b> AI assistant &amp; model strategy consulting – from USD 2,000 (2–4 wks)\n"
+          "<b>P8</b> AI trading signal bot – in development, no price yet\n\n"
+          "✓ Written scope and fixed price before starting\n✓ 50% upfront to start · milestones for larger projects\n"
           "✓ Payment in USDC / USDT or bank transfer\n✓ 30 days of support after delivery\n\n"
-          "This bot is a sample of P1. Let's talk: /contact")
+          "This bot is a sample of P1. Watch it work: /community · Build your request: portfolio.lcaitech.com/#builder · /contact")
     return tr(lang, es, en) + footer(lang, "portfolio.lcaitech.com")
 
 
@@ -335,14 +354,16 @@ def r_welcome(lang: str) -> str:
         "Tocá un botón o usá:\n"
         "/precio btc · precio y 24h\n/ath eth · distancia al ATH\n/feargreed · sentimiento del mercado\n"
         "/whales btc · trades grandes en MEXC\n/unlocks · token unlocks\n/ask · preguntale al agente\n"
-        "/servicios · paquetes y precios\n/contacto · hablemos\n\n" + DISCLAIMER["es"],
+        "/comunidad · 🎭 simulación de comunidad: mirá el bot trabajando\n"
+        "/servicios · paquetes y precios\n/contacto · hablemos (por escrito)\n\n" + DISCLAIMER["es"],
         "👋 <b>Hi! I'm the LCA ITECH demo bot</b>\n"
         "A live sample of what Leandro Buchter builds for crypto communities and tech teams: "
         "market data, alerts and AI agents.\n\n"
         "Tap a button or use:\n"
         "/price btc · price and 24h\n/ath eth · distance to ATH\n/feargreed · market sentiment\n"
         "/whales btc · large trades on MEXC\n/unlocks · token unlocks\n/ask · ask the agent\n"
-        "/services · packages and prices\n/contact · let's talk\n\n" + DISCLAIMER["en"])
+        "/community · 🎭 community simulation: watch the bot at work\n"
+        "/services · packages and prices\n/contact · let's talk (in writing)\n\n" + DISCLAIMER["en"])
 
 
 # ---------- comandos ----------
@@ -352,6 +373,8 @@ def arg0(ctx: ContextTypes.DEFAULT_TYPE, default: str) -> str:
 
 async def start(update: Update, ctx: ContextTypes.DEFAULT_TYPE) -> None:
     lang = lang_of(update)
+    if ctx.args and ctx.args[0].lower() in ("comunidad", "community"):  # deep link t.me/<bot>?start=comunidad
+        return await start_sim(update, ctx, "full")
     photo = os.path.join(BASE, "assets", "welcome_1280x720.png")
     try:
         with open(photo, "rb") as f:
@@ -408,7 +431,9 @@ async def private_text(update: Update, ctx: ContextTypes.DEFAULT_TYPE) -> None:
 
 async def servicios(update: Update, ctx: ContextTypes.DEFAULT_TYPE) -> None:
     lang = lang_of(update)
-    kb = InlineKeyboardMarkup([[InlineKeyboardButton("🌐 Portfolio", url=PORTFOLIO),
+    kb = InlineKeyboardMarkup([[InlineKeyboardButton(tr(lang, "🎭 Ver el bot en acción", "🎭 See the bot in action"), callback_data="sim:full")],
+                               [InlineKeyboardButton(tr(lang, "🛠 Armar mi bot", "🛠 Build my bot"), url=com.BUILDER_URL)],
+                               [InlineKeyboardButton("🌐 Portfolio", url=PORTFOLIO),
                                 InlineKeyboardButton(tr(lang, "📬 Contacto", "📬 Contact"), callback_data="contact")]])
     await send(update, ctx, r_services(lang), kb)
 
@@ -419,10 +444,18 @@ async def contacto(update: Update, ctx: ContextTypes.DEFAULT_TYPE) -> None:
 
 async def on_button(update: Update, ctx: ContextTypes.DEFAULT_TYPE) -> None:
     q = update.callback_query
-    await q.answer()
     lang = lang_of(update)
     data = q.data or ""
     kind, _, arg = data.partition(":")
+    if kind == "sim":
+        if arg == "cap":
+            return await q.answer(tr(lang, "✅ Verificado (simulación). En un grupo real, recién ahora podría escribir.",
+                                     "✅ Verified (simulation). In a real group, only now could the user post."), show_alert=True)
+        await q.answer()
+        if arg in SIM_NAMES:
+            await start_sim(update, ctx, arg)
+        return
+    await q.answer()
     if kind in ("price", "ath", "fg", "whales"):
         await typing(update, ctx)
     if kind == "price":
@@ -446,6 +479,103 @@ async def on_button(update: Update, ctx: ContextTypes.DEFAULT_TYPE) -> None:
         await servicios(update, ctx)
     elif kind == "contact":
         await contacto(update, ctx)
+
+
+# ---------- simulación de comunidad (usuarios ficticios) ----------
+SIM_NAMES = ("full", "faq", "alerts", "mod", "sum", "onb")
+SIM_SPEED = max(0.2, float(os.getenv("SIM_SPEED", "1") or 1))
+LIMITER = com.SimLimiter(full_cooldown=float(os.getenv("SIM_COOLDOWN_SEC", 90)),
+                         demo_cooldown=float(os.getenv("SIM_DEMO_COOLDOWN_SEC", 20)),
+                         max_running=int(os.getenv("SIM_MAX_RUNNING", 8)), daily=int(os.getenv("SIM_DAILY_LIMIT", 15)))
+
+
+async def sim_market() -> dict:
+    """Datos reales para las alertas (mismas fuentes y caché que /precio y /feargreed); None si la API falla."""
+    async def safe(coro):  # noqa: ANN001, ANN202
+        try:
+            return await coro
+        except Exception:  # noqa: BLE001 – la escena muestra el aviso de fuente caída
+            return None
+    btc, eth, fg = await asyncio.gather(safe(src.market("btc")), safe(src.market("eth")), safe(src.fear_greed(1)))
+    return {"btc": btc, "eth": eth, "fg": fg[0] if fg else None}
+
+
+def sim_markup(step: com.Step) -> InlineKeyboardMarkup | None:
+    if not step.buttons:
+        return None
+    rows = [[InlineKeyboardButton(label, url=data) if data.startswith("https://") else InlineKeyboardButton(label, callback_data=data)]
+            for label, data in step.buttons]
+    return InlineKeyboardMarkup(rows)
+
+
+async def play_sim(bot, chat_id: int, user_id: int, name: str, lang: str) -> None:  # noqa: ANN001
+    try:
+        mkt = await sim_market() if com.needs_market(name) else {}
+        for st in com.scene(name, lang, mkt):
+            if st.kind in ("bot", "menu"):
+                try:
+                    await bot.send_chat_action(chat_id, ChatAction.TYPING)
+                except Exception:  # noqa: BLE001 – cosmético
+                    pass
+            await asyncio.sleep(st.delay * SIM_SPEED)
+            msg = await bot.send_message(chat_id, com.render(st, lang), reply_markup=sim_markup(st))
+            if st.kind == "spam":
+                await asyncio.sleep(1.4 * SIM_SPEED)
+                await bot.edit_message_text(com.render_deleted(st, lang), chat_id=chat_id, message_id=msg.message_id)
+    except Exception as e:  # noqa: BLE001 – el usuario bloqueó el bot, borró el chat, etc.
+        log.warning("simulation %s stopped: %s", name, type(e).__name__)
+    finally:
+        LIMITER.release(user_id)
+
+
+async def start_sim(update: Update, ctx: ContextTypes.DEFAULT_TYPE, name: str) -> None:
+    lang = lang_of(update)
+    chat = update.effective_chat
+    if chat.type != "private":  # en grupos no: sería spam para todos
+        link = f"https://t.me/{ctx.bot.username}?start=comunidad"
+        return await send(update, ctx, tr(lang, f"🎭 La simulación corre por privado para no llenar el grupo: {link}",
+                                         f"🎭 The simulation runs in a private chat so it doesn't flood the group: {link}"))
+    uid = update.effective_user.id
+    why = LIMITER.acquire(uid, name)
+    if why:
+        return await send(update, ctx, com.limit_text(why, lang))
+    # en segundo plano: no bloquea al resto de los usuarios mientras corre la escena
+    ctx.application.create_task(play_sim(ctx.bot, chat.id, uid, name, lang), update=update)
+
+
+def sim_cmd(name: str):  # noqa: ANN201
+    async def handler(update: Update, ctx: ContextTypes.DEFAULT_TYPE) -> None:
+        await start_sim(update, ctx, name)
+    return handler
+
+
+# ---------- guardia opcional para grupos reales (GROUP_GUARD=1; el bot tiene que ser admin con permiso de borrar) ----------
+GROUP_GUARD = os.getenv("GROUP_GUARD", "0").strip() == "1"
+
+
+async def group_welcome(update: Update, ctx: ContextTypes.DEFAULT_TYPE) -> None:
+    msg = update.effective_message
+    lang = lang_of(update)
+    humans = [u for u in (msg.new_chat_members or []) if not u.is_bot]
+    if humans:
+        await ctx.bot.send_message(msg.chat_id, com.group_welcome(lang, ", ".join(u.first_name for u in humans[:5])))
+
+
+async def group_guard(update: Update, ctx: ContextTypes.DEFAULT_TYPE) -> None:
+    msg = update.effective_message
+    key = com.scam_reason(msg.text or msg.caption)
+    if not key or not msg.from_user:
+        return
+    try:
+        member = await ctx.bot.get_chat_member(msg.chat_id, msg.from_user.id)
+        if member.status in ("administrator", "creator"):
+            return  # nunca borra mensajes de admins
+        await msg.delete()
+    except Exception as e:  # noqa: BLE001 – sin permiso de borrar: no hace nada (no avisa para no ensuciar el grupo)
+        log.warning("group guard: could not delete (%s)", type(e).__name__)
+        return
+    log.info("group guard: deleted message (%s) in chat %s", key, msg.chat_id)
+    await ctx.bot.send_message(msg.chat_id, com.group_warning(lang_of(update), msg.from_user.first_name, key))
 
 
 async def log_update(update: Update, ctx: ContextTypes.DEFAULT_TYPE) -> None:
@@ -474,12 +604,18 @@ COMMANDS_ES = [("start", "Inicio y botones rápidos"), ("help", "Ayuda y lista d
                ("precio", "Precio y variación 24h (ej. /precio btc)"), ("ath", "Distancia al máximo histórico (ej. /ath eth)"),
                ("feargreed", "Índice Fear & Greed"), ("unlocks", "Token unlocks"),
                ("whales", "Trades grandes recientes (ej. /whales btc)"), ("ask", "Preguntale al agente"),
-               ("servicios", "Paquetes y precios"), ("contacto", "Hablemos")]
+               ("comunidad", "Simulación de comunidad: el bot en acción"), ("demo_faq", "Demo S1: preguntas frecuentes"),
+               ("demo_alertas", "Demo S2: alertas de precio"), ("demo_moderacion", "Demo S3: moderación y antispam"),
+               ("demo_resumen", "Demo P1: resumen diario"), ("demo_onboarding", "Demo P3: onboarding y referidos"),
+               ("servicios", "Paquetes y precios"), ("contacto", "Hablemos por escrito")]
 COMMANDS_EN = [("start", "Start and quick buttons"), ("help", "Help and command list"),
                ("price", "Price and 24h change (e.g. /price btc)"), ("ath", "Distance to all-time high (e.g. /ath eth)"),
                ("feargreed", "Fear & Greed Index"), ("unlocks", "Token unlocks"),
                ("whales", "Recent large trades (e.g. /whales btc)"), ("ask", "Ask the agent"),
-               ("services", "Packages and prices"), ("contact", "Let's talk")]
+               ("community", "Community simulation: the bot in action"), ("demo_faq", "S1 demo: FAQ bot"),
+               ("demo_alerts", "S2 demo: price alerts"), ("demo_moderation", "S3 demo: moderation and anti-spam"),
+               ("demo_summary", "P1 demo: daily summary"), ("demo_onboarding", "P3 demo: onboarding and referrals"),
+               ("services", "Packages and prices"), ("contact", "Let's talk in writing")]
 
 
 async def post_init(app: Application) -> None:
@@ -507,6 +643,14 @@ def build_app() -> Application:
                       (("ask", "preguntar"), ask), (("servicios", "services"), servicios),
                       (("contacto", "contact"), contacto)]:
         app.add_handler(CommandHandler(list(names), fn))
+    for names, name in [(("comunidad", "community", "simulacion"), "full"), (("demo_faq",), "faq"),
+                        (("demo_alertas", "demo_alerts"), "alerts"), (("demo_moderacion", "demo_moderation"), "mod"),
+                        (("demo_resumen", "demo_summary"), "sum"), (("demo_onboarding",), "onb")]:
+        app.add_handler(CommandHandler(list(names), sim_cmd(name)))
+    if GROUP_GUARD:
+        groups = filters.ChatType.GROUPS
+        app.add_handler(MessageHandler(groups & filters.StatusUpdate.NEW_CHAT_MEMBERS, group_welcome))
+        app.add_handler(MessageHandler(groups & (filters.TEXT | filters.CAPTION) & ~filters.COMMAND, group_guard))
     app.add_handler(TypeHandler(Update, log_update), group=-1)
     app.add_handler(CallbackQueryHandler(on_button))
     app.add_handler(MessageHandler(filters.ChatType.PRIVATE & filters.TEXT & ~filters.COMMAND, private_text))

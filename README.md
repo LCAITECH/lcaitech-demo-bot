@@ -20,10 +20,20 @@ Bot demo de **LCA ITECH** (Leandro Buchter): una muestra en vivo de lo que const
 | `/whales btc` (`/ballenas`) | Trades grandes recientes (≥ USD 20.000 por defecto) en MEXC |
 | `/unlocks` | Token unlocks: sin una fuente confiable cargada, explica la versión para clientes y linkea a [athintelligence.pro/unlocks](https://athintelligence.pro/unlocks). Nunca muestra datos inventados |
 | `/ask ¿qué es un unlock?` (`/preguntar`) | Agente de preguntas frecuentes (base en `data/faq.md`). En chat privado también se le puede escribir directo |
-| `/servicios` (`/services`) | Paquetes y precios "desde" |
+| `/comunidad` (`/community`, también `t.me/lcaitech_demo_bot?start=comunidad`) | 🎭 **Simulación de comunidad** con usuarios ficticios, por privado: bienvenida con captcha, preguntas frecuentes, scams borrados (🗑 Mensaje eliminado) con advertencia y silencio, alertas con precios **reales** (CoinGecko / alternative.me), resumen del día y menú de módulos con precios. Cooldown por usuario (90 s; demos cortas 20 s), una a la vez por usuario, tope global y diario |
+| `/demo_faq` · `/demo_alertas` · `/demo_moderacion` · `/demo_resumen` · `/demo_onboarding` | Demo de un solo módulo: S1, S2, S3, P1 y P3 |
+| `/servicios` (`/services`) | Bots chicos S1–S3, Pack Comunidad y paquetes P0–P8 |
 | `/contacto` (`/contact`) | Email, LinkedIn, GitHub, X y portfolio |
 
 El menú de comandos se carga solo al iniciar (`setMyCommands`): en castellano por defecto y en inglés para usuarios con Telegram en inglés. El idioma de las respuestas sigue el idioma de Telegram del usuario.
+
+### Simulación y guardia para grupos
+
+- La lógica de la simulación vive en [`community.py`](community.py) (pura, sin red ni Telegram, con tests en `tests/`). `bot.py` la reproduce en segundo plano con pausas y "escribiendo…", así no bloquea a otros usuarios.
+- En grupos, `/comunidad` no corre (sería spam): responde con el link al privado.
+- **Guardia opcional para grupos reales** (`GROUP_GUARD=1`, apagada por defecto): da la bienvenida a los miembros nuevos y borra scams claros (pedidos de seed phrase o clave privada, airdrops falsos con link, "duplicá tus cripto", falso soporte) con un aviso. El bot tiene que ser admin con permiso de borrar mensajes; nunca borra mensajes de admins y no silencia a nadie (eso queda para la versión de clientes).
+
+Tests: `pip install pytest && python -m pytest -q` (sin red ni token).
 
 ## Fuentes de datos
 
